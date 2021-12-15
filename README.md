@@ -7,9 +7,9 @@ Verwendete Libarys:
 * [Vno (Vue für Deno) ](https://deno.land/x/vno@1.5.1)
 
 # Commands
-* Reload Dependencys `deno cache --lock=lock.json --lock-write src/deps.js`
-  
-
+* Reload Dependencys and cache localy: `deno cache --reload --lock=lock.json deps.js`
+* Update the Dependencys: `deno cache --lock=lock.json --lock-write deps.js`
+* Run Backend: `deno run --lock=lock.json --cached-only backend.js`
 
 # Installationsanleitung
 ## Entwicklung
