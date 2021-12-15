@@ -1,7 +1,0 @@
-<component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Start All" type="CompoundRunConfigurationType">
-    <toRun name="Deno:Backend (Allow all)" type="DenoConfigurationType" />
-    <toRun name="Vno:Frontend" type="ShConfigurationType" />
-    <method v="2" />
-  </configuration>
-</component>
