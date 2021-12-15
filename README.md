@@ -6,6 +6,9 @@ Projekt von Laurin und Nicola
 Verwendete Libarys:
 * [Vno (Vue für Deno) ](https://deno.land/x/vno@1.5.1)
 
+# Commands
+* Reload Dependencys `deno cache --lock=lock.json --lock-write src/deps.js`
+  
 
 
 # Installationsanleitung
@@ -28,6 +31,13 @@ dort hinzufügen und den Computer neustarten. Alternativ können die Befehle auc
 Vno ist Vue für Deno, um die CLI zu installieren muss der Befehl 
 `sudo deno install --allow-net --unstable https://deno.land/x/vno/install/vno.ts`
 ausgeführt werden. Vno wird für das Backend nicht benötigt. Kann auch ohne Sudo gemacht werden.
+
+
+## Run
+###Frontend
+Wechsle in das richtige Verzeichnis `cd frontend/`
+und führe folgenden Befehl aus:</br>
+`vno run dev`
 
 
 ## Produktiv
