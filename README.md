@@ -1,12 +1,12 @@
 # OnlyLaedeli
 
-Projekt von Laurin und Nicola
+OnlyLaedeli ist kein reales Unternehmen. Dieses Projekt wurde als Teil der Ausbildung zum Informatiker von Laurin und Nicola umgesetzt. Dieses Projekt ist ein Auftrag aus dem Modul M133. Einige der verwendeten Ressourcen (Bilder, Daten) wurden vom BBZW Sursee zur Verfügung gestellt.
 
 # Frontend
 Verwendete Libarys:
 * [Vue (Frontend)](https://vuejs.org/v2/guide/)
   * [Vuetify (Material Libary für Vue)](https://vuetifyjs.com/en/getting-started/installation/)
-  * [Vue Router)](https://router.vuejs.org/)
+  * [Vue Router](https://router.vuejs.org/)
 * Deno
 * Oak
 
