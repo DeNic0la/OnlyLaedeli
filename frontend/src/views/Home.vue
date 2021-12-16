@@ -1,18 +1,29 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <product-component v-for="(product, index) in products" :key="index" :description="product.description" :normal-price="product.normalPrice" :product-name="product.productName">
+
+    </product-component>
   </div>
+
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+
+import ProductComponent from "../components/ProductComponent.vue";
+import Products from "../assets/products.json"
 
 export default {
   name: 'Home',
   components: {
-    HelloWorld
+    ProductComponent
+  },
+  data:function () {
+    return{
+      products:Products,
+    }
+  },
+  mounted() {
+    console.log(Products);
   }
 }
 </script>

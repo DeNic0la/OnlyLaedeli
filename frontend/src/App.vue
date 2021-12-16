@@ -1,10 +1,26 @@
 <template>
   <v-app>
-    <v-app-bar app>
-      <div id="nav">
-        <router-link to="/">Home</router-link> |
+    <v-app-bar app
+               dense
+               dark
+               color="pink darken-4"
+    >
+      <v-toolbar-title>OnlyLaedeli</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-btn
+          color="purple darken-1"
+          elevation="4"
+      >
+        <router-link to="/">Home</router-link>
+      </v-btn>
+      <v-btn
+          color="purple darken-1"
+          elevation="4"
+      >
         <router-link to="/product">Product</router-link>
-      </div>
+      </v-btn>
+
+
     </v-app-bar>
 
     <v-main>
@@ -18,25 +34,35 @@
   </v-app>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
 
-#nav {
-  padding: 30px;
+export default {
+  name: 'App',
+  components: {
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
+  },
+  data:function(){
+    return{
 
-    &.router-link-exact-active {
-      color: #42b983;
     }
   }
+}
+</script>
+
+<style lang="scss">
+.v-btn{
+  margin-left: 5px;
+  margin-right: 5px;
+
+}
+.v-application button a{
+  color: white;
+}
+a{
+  text-decoration: none;
+}
+
+.router-link-exact-active{
+  text-decoration: underline;
 }
 </style>
