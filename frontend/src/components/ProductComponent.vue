@@ -1,8 +1,9 @@
 <template>
   <v-card
       :loading="loading"
-      class="mx-auto my-12"
-      max-width="374"
+      class="product"
+      max-width="35vw"
+      height="500px"
   >
     <template slot="progress">
       <v-progress-linear
@@ -21,10 +22,15 @@
       {{this.productName}}
     </v-card-title>
 
-    <v-card-text>
+    <v-card-text
+      class="h-400"
+    >
 
-      <div class="my-4 text-subtitle-1">
-        {{this.normalPrice}}
+      <div class="text-subtitle-1" :class="mainPriceCssClass">
+        {{this.normalPrice}} CHF
+      </div>
+      <div class="text-subtitle-1 actionPrice price" v-if="specialPrice">
+        {{this.specialPrice}} CHF
       </div>
 
       <div>{{this.description}}</div>
@@ -82,10 +88,34 @@ export default {
     return{
       loading:false,
     }
+  },
+  computed:{
+    mainPriceCssClass(){
+      if (this.specialPrice){
+        return "old-price"
+      }
+      else {
+        return "price"
+      }
+    },
   }
 }
 </script>
 
 <style scoped>
-
+.product{
+  margin: 5px;
+}
+.h-400{
+  height: 120px;
+}
+.price{
+  font-weight: bolder;
+}
+.actionPrice{
+  color: ForestGreen;
+}
+.old-price{
+  text-decoration: line-through;
+}
 </style>

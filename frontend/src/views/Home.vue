@@ -1,16 +1,34 @@
 <template>
   <div>
-    <product-component v-for="(product, index) in products" :key="index" :description="product.description" :normal-price="product.normalPrice" :product-name="product.productName">
+    <div class="product-container">
+      <v-container>
+        <v-row>
+          <v-col
+              cols="4"
+              v-for="(product, index) in products" :key="index"
+          >
+            <v-lazy
+                :options="{
+                threshold: .3
+              }"
+                min-height="250"
+                transition="expand-transition"
+            >
+              <product-component :description="product.description" :special-price="product.specialOffer" :normal-price="product.normalPrice" :product-name="product.productName">
 
-    </product-component>
+              </product-component>
+            </v-lazy>
+          </v-col>
+        </v-row>
+      </v-container>
+    </div>
   </div>
-
 </template>
 
 <script>
 
 import ProductComponent from "../components/ProductComponent.vue";
-import Products from "../assets/products.json"
+import Products from "../assets/products_big.json"
 
 export default {
   name: 'Home',
@@ -22,8 +40,20 @@ export default {
       products:Products,
     }
   },
+  computed:{
+
+  },
   mounted() {
-    console.log(Products);
+
   }
 }
 </script>
+
+<style scoped>
+.product-container{
+  display: flex;
+  align-self: center;
+  justify-content: space-around;
+  flex-direction: row;
+}
+</style>
