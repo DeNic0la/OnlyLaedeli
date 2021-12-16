@@ -1,10 +1,14 @@
 # OnlyLaedeli
 
-Projekt von Laurin und Nicola
+OnlyLaedeli ist kein reales Unternehmen. Dieses Projekt wurde als Teil der Ausbildung zum Informatiker von Laurin und Nicola umgesetzt. Dieses Projekt ist ein Auftrag aus dem Modul M133. Einige der verwendeten Ressourcen (Bilder, Daten) wurden vom BBZW Sursee zur Verfügung gestellt.
 
 # Frontend
 Verwendete Libarys:
-* [Vno (Vue für Deno) ](https://deno.land/x/vno@1.5.1)
+* [Vue (Frontend)](https://vuejs.org/v2/guide/)
+  * [Vuetify (Material Libary für Vue)](https://vuetifyjs.com/en/getting-started/installation/)
+  * [Vue Router](https://router.vuejs.org/)
+* Deno
+* Oak
 
 # Commands
 * Reload Dependencys and cache localy: `deno cache --reload --lock=lock.json deps.js`
@@ -27,24 +31,29 @@ export PATH="$DENO_INSTALL/bin:$PATH"`</br>
 dort hinzufügen und den Computer neustarten. Alternativ können die Befehle auch ausgeführt werden.(Dies muss jedoch nach jedem Neustart gemacht werden und ist nicht empfohlen)
 
 
-### Vno Instalieren
-Vno ist Vue für Deno, um die CLI zu installieren muss der Befehl 
-`sudo deno install --allow-net --unstable https://deno.land/x/vno/install/vno.ts`
-ausgeführt werden. Vno wird für das Backend nicht benötigt. Kann auch ohne Sudo gemacht werden.
+### Vue Instalieren
+npm installieren:`package command`</br>
+Vue Cli installieren:`npm install -g @vue/cli`</br>
+In korrektes Verzeichniss wechseln:`cd frontend/`</br>
+Dependencys Installieren:`npm install`</br>
+
 
 
 ## Run
-###Frontend
+Mit der [Webstorm IDEA](https://www.jetbrains.com/de-de/webstorm/) können die Run-Configurations einfach ausgeführt werden und diese Anleitung muss nicht beachtet werden
+### Frontend
 Wechsle in das richtige Verzeichnis `cd frontend/`
 und führe folgenden Befehl aus:</br>
-`vno run dev`
-
+`npm run serve` (Runconfig vorhanden)
+### Backend
+Wechsle in das richtige Verzeichnis `cd backend/`
+und führe folgenden Befehl aus:</br>
+`deno run --lock=lock.json --cached-only backend.js`</br>
+Vorher solltest du sicherstellen dass du alle Dependencys geladen hast, mit folgendem Command kannst du die Dependencys Laden:</br>
+`deno cache --reload --lock=lock.json deps.js`</br>
+Wenn du neue Dependencys Hinzugefügt hast solltest du diese mit dem `deno cache --lock=lock.json --lock-write deps.js` Command in das lockfile schreiben
 
 ## Produktiv
 
 
 # Version Requirements
-* Vno erfordert Version 1.10 oder neuer
-
-
-alias sudo='sudo env PATH=$PATH $@'
