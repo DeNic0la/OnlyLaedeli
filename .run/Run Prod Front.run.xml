@@ -1,0 +1,19 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Run Image Front | Prod" type="docker-deploy" factoryName="docker-image" folderName="Prod" server-name="Docker">
+    <deployment type="docker-image">
+      <settings>
+        <option name="imageTag" value="denic0la/laedeli-front:latest" />
+        <option name="containerName" value="front-prod" />
+        <option name="portBindings">
+          <list>
+            <DockerPortBindingImpl>
+              <option name="containerPort" value="80" />
+              <option name="hostPort" value="80" />
+            </DockerPortBindingImpl>
+          </list>
+        </option>
+      </settings>
+    </deployment>
+    <method v="2" />
+  </configuration>
+</component>
