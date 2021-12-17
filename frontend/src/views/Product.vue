@@ -1,21 +1,107 @@
 <template>
-  <div>
-    <h1>Le Id:{{id}}</h1>
+  <div class="product-container">
+    <v-card
+        v-if="isLoded && isValid"
+        class="product"
+        width="70vw"
+        max-width="80vw"
+        height="90vh"
+    >
+      <template slot="progress">
+        <v-progress-linear
+            color="deep-purple"
+            height="10"
+            indeterminate
+        ></v-progress-linear>
+      </template>
+
+      <v-img
+          height="60vh"
+          contain
+          src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+      ></v-img>
+
+      <v-card-title>
+        {{this.product.productName}}
+      </v-card-title>
+
+      <v-card-text
+          class="h-400"
+      >
+
+        <div class="text-subtitle-1" :class="mainPriceCssClass">
+          {{this.product.normalPrice}} CHF
+        </div>
+        <div class="text-subtitle-1 actionPrice price" v-if="product.specialOffer">
+          {{this.product.specialOffer}} CHF
+        </div>
+
+        <div>{{this.product.description}}</div>
+      </v-card-text>
+
+      <v-divider class="mx-4"></v-divider>
+
+      <v-card-actions>
+        <v-btn
+            color="deep-purple lighten-2"
+            text
+        >
+          Zum Warenkorb hinzufügen
+        </v-btn>
+      </v-card-actions>
+    </v-card>
   </div>
 </template>
 
 <script>
+import {getService} from "../service/ProductService.js";
+
 export default {
   name: "Product",
   data: function (){
     return{
       id:this.$route.params.id,
+      productService: getService(),
+      product: null,
     }
   },
+  mounted() {
+    this.product = this.productService.getProductById(this.id);
+  },
+  computed:{
+    isValid(){
+      return this.product?.id;
+    },
+    isLoded(){
+      return !(this.product === null)
+    },
+    mainPriceCssClass(){
+      if (this.product?.specialOffer){
+        return "old-price"
+      }
+      else {
+        return "price"
+      }
+    },
+  }
 
 }
 </script>
 
 <style scoped>
-
+.product-container{
+  display: flex;
+  align-self: center;
+  justify-content: space-around;
+  flex-direction: row;
+}
+.price{
+  font-weight: bolder;
+}
+.actionPrice{
+  color: ForestGreen;
+}
+.old-price{
+  text-decoration: line-through;
+}
 </style>

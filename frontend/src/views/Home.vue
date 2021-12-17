@@ -28,7 +28,7 @@
 <script>
 
 import ProductComponent from "../components/ProductComponent.vue";
-import Products from "../assets/products_big.json"
+import {getService} from "../service/ProductService.js";
 
 export default {
   name: 'Home',
@@ -37,14 +37,15 @@ export default {
   },
   data:function () {
     return{
-      products:Products,
+      products:[],
+      productService: getService(),
     }
   },
   computed:{
 
   },
   mounted() {
-
+    this.products = this.productService.products;
   }
 }
 </script>

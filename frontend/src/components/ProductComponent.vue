@@ -51,6 +51,8 @@
 </template>
 
 <script>
+
+
 export default {
   name: "ProductComponent",
   props:{
@@ -82,6 +84,7 @@ export default {
   methods:{
     addToBasket(){
       console.log("Added to basket");
+
     }
   },
   data:function () {
