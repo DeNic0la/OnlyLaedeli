@@ -1,0 +1,8 @@
+FROM denoland/deno:1.13.2
+
+EXPOSE 8000
+WORKDIR /app
+USER deno
+ADD . .
+
+CMD ["run", "--lock=lock.json", "--cached-only", "--allow-all", "backend.js"]
