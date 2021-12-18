@@ -18,5 +18,18 @@ ApiRouter.get('/product/:id', context => {
         "description": "Hardcoded Object"
     }`;
 })
+ApiRouter.get('/basket/', context => {
+    //TODO LAURIN: return the Basket
+    context.response.body = {
+        1:3,
+        3:2,
+        4:5,
+    }; // Formatt = ID : AMOUNT
+})
+ApiRouter.post('/basket/:itemId', async context => {
+    const {itemId} = helpers.getQuery(context, {mergeParams: true});
+    const {amount} = await context.request.body().value;
+    //TODO Laurin update Basket, if amount = 0 delete
+})
 
 export {ApiRouter};
