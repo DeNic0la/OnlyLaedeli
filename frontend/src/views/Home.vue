@@ -14,7 +14,7 @@
                 min-height="250"
                 transition="expand-transition"
             >
-              <product-component :description="product.description" :special-price="product.specialOffer" :normal-price="product.normalPrice" :product-name="product.productName">
+              <product-component :description="product.description" :id="product.id" :image-name="product.imageName" :special-price="product.specialOffer" :normal-price="product.normalPrice" :product-name="product.productName">
 
               </product-component>
             </v-lazy>
@@ -36,8 +36,8 @@ export default {
     ProductComponent
   },
   data:function () {
-    return{
-      products:[],
+    return {
+      products: [],
       productService: getService(),
     }
   },
@@ -45,7 +45,9 @@ export default {
 
   },
   mounted() {
-    this.products = this.productService.products;
+    this.productService.getAllProducts().then(value => {
+      this.products = value;
+    })
   }
 }
 </script>

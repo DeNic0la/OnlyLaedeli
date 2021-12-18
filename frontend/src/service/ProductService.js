@@ -1,13 +1,35 @@
-//import axios from "axios";
-import Products from "../assets/products.json"
+import axios from "axios";
+import {URL_BACK} from "../Web.Config.js";
 class ProductService {
 
     constructor() {
         this.url = ";";
-        this.products = Products;
+        this.products = this.getAllProducts();
     }
     getAllProducts(){
-        return this.products;
+        return new Promise(resolve => {
+
+            axios.get(`${URL_BACK}/products.json`, {headers: {Accept: 'application/json'}}).then(value =>  {
+                if (value.status === 200) {
+                    resolve(value.data)
+                }
+                else {
+                    resolve([]);
+                    //TODO Show Error
+                    return [];
+                }
+            })
+        })
+        /*return /*.then(value => {
+            if (value.status === 200) {
+                return value.data;
+            }
+            else {
+                //TODO Show Error
+                return [];
+            }
+        });*/
+        //return this.products;
     }
     getProductById(idToGet){
         const find = parseInt(idToGet);
