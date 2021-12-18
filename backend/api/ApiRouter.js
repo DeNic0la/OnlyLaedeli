@@ -1,5 +1,4 @@
 import {helpers,Router} from "../deps.js";
-import {URL_BACK} from "../../frontend/src/Web.Config.js";
 
 const ApiRouter = new Router();
 

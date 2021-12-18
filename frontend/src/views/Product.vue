@@ -1,7 +1,7 @@
 <template>
   <div class="product-container">
     <v-card
-        v-if="isLoded && isValid"
+        v-if="isLoaded && isValid"
         class="product"
         width="70vw"
         max-width="80vw"
@@ -74,7 +74,7 @@ export default {
     isValid(){
       return this.product?.id;
     },
-    isLoded(){
+    isLoaded(){
       return !(this.product === null)
     },
     mainPriceCssClass(){
