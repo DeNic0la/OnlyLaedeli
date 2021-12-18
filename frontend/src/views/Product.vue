@@ -66,7 +66,9 @@ export default {
     }
   },
   mounted() {
-    this.product = this.productService.getProductById(this.id);
+    this.productService.getProductById(this.id).then(value => {
+      this.product = value;
+    });
   },
   computed:{
     isValid(){
