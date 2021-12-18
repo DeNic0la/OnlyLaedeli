@@ -12,7 +12,7 @@
             </DockerPortBindingImpl>
           </list>
         </option>
-        <option name="sourceFilePath" value="backend/Dockerfile" />
+        <option name="sourceFilePath" value="frontend/Dockerfile" />
       </settings>
     </deployment>
     <method v="2" />
