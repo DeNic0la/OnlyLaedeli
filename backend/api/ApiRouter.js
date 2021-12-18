@@ -31,5 +31,15 @@ ApiRouter.post('/basket/:itemId', async context => {
     const {amount} = await context.request.body().value;
     //TODO Laurin update Basket, if amount = 0 delete
 })
+ApiRouter.post('/basket/checkout', async context => {
+    const {data, basket} = await context.request.body().value;
+    //TODO Laurin Vertify Data and Basket
+    context.response.body = {
+        valid: true,
+        errors:{},
+        orderNumber:1,
+    };
+    //errors format = field:error message
+})
 
 export {ApiRouter};
