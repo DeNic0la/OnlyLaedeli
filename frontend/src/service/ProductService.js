@@ -7,19 +7,7 @@ class ProductService {
         this.products = this.getAllProducts();
     }
     getAllProducts(){
-        return new Promise(resolve => {
-
-            axios.get(`${URL_BACK}/products.json`, {headers: {Accept: 'application/json'}}).then(value =>  {
-                if (value.status === 200) {
-                    resolve(value.data)
-                }
-                else {
-                    resolve([]);
-                    //TODO Show Error
-                    return [];
-                }
-            })
-        })
+        return
     }
     getProductById(idToGet){
         return new Promise(resolve => {

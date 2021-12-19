@@ -28,7 +28,7 @@
 <script>
 
 import ProductComponent from "../components/ProductComponent.vue";
-import {getService} from "../service/ProductService.js";
+import { mapActions } from 'vuex'
 
 export default {
   name: 'Home',
@@ -37,16 +37,20 @@ export default {
   },
   data:function () {
     return {
-      products: [],
-      productService: getService(),
+
     }
   },
   computed:{
-
+    products(){
+      return this.$store.getters.getAllProducts;
+    }
   },
   mounted() {
-    this.productService.getAllProducts().then(value => {
-      this.products = value;
+    this.fetchProducts();
+  },
+  methods:{
+    ...mapActions({
+      fetchProducts: 'fetchProductsFromApi'
     })
   }
 }
