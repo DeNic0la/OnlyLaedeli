@@ -54,23 +54,30 @@
 </template>
 
 <script>
-import {getService} from "../service/ProductService.js";
+
+
+import {mapActions} from "vuex";
 
 export default {
   name: "Product",
   data: function (){
     return{
-      id:this.$route.params.id,
-      productService: getService(),
-      product: null,
+      id:parseInt(this.$route.params.id),
+//      product: {},
     }
   },
   mounted() {
-    this.productService.getProductById(this.id).then(value => {
-      this.product = value;
-    });
+    this.fetchProducts();
+  },
+  methods:{
+    ...mapActions({
+      fetchProducts: 'fetchProductsFromApi'
+    })
   },
   computed:{
+    product(){
+      return this.$store.getters.getProductById(this.id);
+    },
     isValid(){
       return this.product?.id;
     },
