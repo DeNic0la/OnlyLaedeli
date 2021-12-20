@@ -6,15 +6,8 @@ export const Basket = {
         loading: false,
     },
     mutations: {
-        updateBasket(state, payload){
-            let basket = payload.basket;
-            let newBasket = {};
-            for (const [key, value] of Object.entries(basket)){
-                let entry = {productId:parseInt(key),count:parseInt(value)};
-                newBasket[key] = entry;
-            }
-            state.basket = newBasket;
-
+        updateBasket(state, {payload}){
+            state.basket = payload.basket;
         },
 
         setLoading(state, payload){
@@ -33,10 +26,10 @@ export const Basket = {
                     }
                 })
             }).then(r =>{
-                commit('updateBasket',{basket:r});
+                commit('updateBasket',{payload:{basket:r}});
             })
         },
-        setNewProductCount({commit},details){
+        setNewProductCount({commit, getters},details){
             let id = details.productId;
             let count = details.newCount;
             new Promise(resolve => {
@@ -52,13 +45,21 @@ export const Basket = {
                     }
                 })
             }).then(r =>{
-                commit('updateBasket',{basket:r});
+                commit('updateBasket',{payload:{basket:r},getters});
             })
         }
     },
     getters: {
-        getBasket: state => {
-            return state.basket;
+        getBasket(state, rootGetters) {
+            let basket = state.basket;
+            let newBasket = {};
+            for (const [key, value] of Object.entries(basket)){
+                let id = parseInt(key);
+                let product = rootGetters.getProductById(id);
+                let entry = {productId:id,count:parseInt(value),product:product};
+                newBasket[key] = entry;
+            }
+            return newBasket;
         },
     }
 }

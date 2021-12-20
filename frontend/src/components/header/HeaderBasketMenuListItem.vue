@@ -7,7 +7,7 @@
     </v-list-item-avatar>
 
     <v-list-item-content>
-      <v-list-item-title>{{product.productName}}</v-list-item-title>
+      <v-list-item-title>{{product.productName || ''}}</v-list-item-title>
       <v-list-item-subtitle>
         <product-counter :value="count" @change="$emit('change', $event)"  @remove="$emit('remove')">
 
@@ -36,6 +36,10 @@ export default {
       type:Number,
       required:true,
     },
+    product:{
+      type:Object,
+      required:true,
+    },
   },
   computed:{
     imageSrc(){
@@ -43,9 +47,6 @@ export default {
         return `${URL_BACK}/${this.product.imageName}`;
       }
       return "https://cdn.vuetifyjs.com/images/cards/cooking.png";
-    },
-    product(){
-      return this.$store.getters.getProductById(this.id);
     },
     itemPrice(){
       if (this.product.specialOffer){
@@ -56,7 +57,7 @@ export default {
   },
   data: function () {
     return{
-      input: 1,
+
     }
   },
   methods:{},

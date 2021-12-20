@@ -9,7 +9,7 @@
           v-bind="attrs"
           v-on="on"
       >
-        A Menu
+        B {{totalPrice}} CHF
       </v-btn>
     </template>
     <!--v-list>
@@ -31,7 +31,7 @@
               v-text="'Warenkorb'"
           ></v-subheader>
           <div v-for="(item) in basket" :key="item.productId">
-            <header-basket-menu-list-item :id="item.productId" :count="item.count" @change="changeProductCount(item.productId,$event)"  @remove="changeProductCount(item.productId,0)">
+            <header-basket-menu-list-item :id="item.productId" :product="item.product" :count="item.count" @change="changeProductCount(item.productId,$event)"  @remove="changeProductCount(item.productId,0)">
 
             </header-basket-menu-list-item>
             <v-divider
@@ -64,6 +64,18 @@ export default {
   computed:{
     basket(){
       return this.$store.getters.getBasket;
+    },
+    totalPrice(){
+      let price = 0;
+      Object.values(this.basket).forEach((value) =>{
+        if (value.product){
+          const {specialOffer, normalPrice} = value.product;
+          const itemPrice = parseInt(specialOffer||normalPrice|| 0);
+          price += itemPrice * value.count;
+        }
+      })
+
+      return price;
     }
   },
   methods:{
