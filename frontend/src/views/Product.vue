@@ -18,7 +18,7 @@
       <v-img
           height="60vh"
           contain
-          src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+          :src="imageSrc"
       ></v-img>
 
       <v-card-title>
@@ -57,6 +57,7 @@
 
 
 import {mapActions} from "vuex";
+import {URL_BACK} from "../Web.Config.js";
 
 export default {
   name: "Product",
@@ -77,6 +78,12 @@ export default {
   computed:{
     product(){
       return this.$store.getters.getProductById(this.id);
+    },
+    imageSrc(){
+      if (this.product.imageName){
+        return `${URL_BACK}/${this.product.imageName}`;
+      }
+      return "https://cdn.vuetifyjs.com/images/cards/cooking.png";
     },
     isValid(){
       return this.product?.id;

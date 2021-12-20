@@ -22,7 +22,6 @@
       <header-basket-menu>
 
       </header-basket-menu>
-      <product-counter v-model="count"></product-counter>
 
 
 
@@ -44,18 +43,15 @@
 <script>
 
 import HeaderBasketMenu from "./components/header/HeaderBasketMenu.vue";
-import ProductCounter from "./components/ProductCounter.vue";
-
 
 export default {
   name: 'App',
   components: {
     HeaderBasketMenu,
-    ProductCounter
   },
   data:function(){
     return{
-      count:1,
+
     }
   }
 }

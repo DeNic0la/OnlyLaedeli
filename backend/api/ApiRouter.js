@@ -29,6 +29,13 @@ ApiRouter.post('/basket/:itemId', async context => {
     const {itemId} = helpers.getQuery(context, {mergeParams: true});
     const {amount} = await context.request.body().value;
     //TODO Laurin update Basket, if amount = 0 delete
+
+    context.response.body = {
+        1:3,
+        3:2,
+        4:5,
+    }; // Formatt = ID : AMOUNT
+    //TODO VERY IMPORTANT! Return new Basket
 })
 ApiRouter.post('/basket/checkout', async context => {
     const {data, basket} = await context.request.body().value;

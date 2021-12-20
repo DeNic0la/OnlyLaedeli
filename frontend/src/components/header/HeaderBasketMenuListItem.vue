@@ -3,33 +3,63 @@
     <v-list-item-avatar
         :tile="true"
     >
-      <v-img :src="item.avatar"></v-img>
+      <v-img :src="imageSrc"></v-img>
     </v-list-item-avatar>
 
     <v-list-item-content>
-      <v-list-item-title>{{item.title}}</v-list-item-title>
-      <v-list-item-subtitle>{{item.subtitle}}</v-list-item-subtitle>
+      <v-list-item-title>{{product.productName}}</v-list-item-title>
+      <v-list-item-subtitle>
+        <product-counter :value="count" @change="$emit('change', $event)"  @remove="$emit('remove')">
+
+        </product-counter>
+        <div>{{itemPrice}} CHF</div>
+      </v-list-item-subtitle>
     </v-list-item-content>
   </v-list-item>
 </template>
 
 <script>
+import {URL_BACK} from "../../Web.Config.js";
+import ProductCounter from "../ProductCounter.vue";
+
 export default {
   name: "HeaderBasketMenuListItem",
+  components:{
+    ProductCounter
+  },
   props:{
     id:{
       type:Number,
       required:true
     },
-    image:{
-      type:String,
-      required:false
+    count:{
+      type:Number,
+      required:true,
     },
-    name:{
-      type:String,
-      required:true
+  },
+  computed:{
+    imageSrc(){
+      if (this.product?.imageName){
+        return `${URL_BACK}/${this.product.imageName}`;
+      }
+      return "https://cdn.vuetifyjs.com/images/cards/cooking.png";
+    },
+    product(){
+      return this.$store.getters.getProductById(this.id);
+    },
+    itemPrice(){
+      if (this.product.specialOffer){
+        return this.product.specialOffer*this.count;
+      }
+      return this.product.normalPrice*this.count;
     }
   },
+  data: function () {
+    return{
+      input: 1,
+    }
+  },
+  methods:{},
 }
 </script>
 

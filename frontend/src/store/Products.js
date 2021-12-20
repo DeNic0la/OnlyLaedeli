@@ -28,7 +28,7 @@ export const Products = {
             }).then(r =>{
                 commit('updateProducts',{products:r});
             })
-        }
+        },
     },
      getters: {
         getAllProducts: state => {

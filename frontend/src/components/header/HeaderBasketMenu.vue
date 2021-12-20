@@ -30,20 +30,10 @@
           <v-subheader
               v-text="'Warenkorb'"
           ></v-subheader>
-          <div v-for="(item) in mytems" :key="item.title">
-            <v-list-item
-            >
-              <v-list-item-avatar
-                :tile="true"
-              >
-                <v-img :src="item.avatar"></v-img>
-              </v-list-item-avatar>
+          <div v-for="(item) in basket" :key="item.productId">
+            <header-basket-menu-list-item :id="item.productId" :count="item.count" @change="changeProductCount(item.productId,$event)"  @remove="changeProductCount(item.productId,0)">
 
-              <v-list-item-content>
-                <v-list-item-title>{{item.title}}</v-list-item-title>
-                <v-list-item-subtitle>{{item.subtitle}}</v-list-item-subtitle>
-              </v-list-item-content>
-            </v-list-item>
+            </header-basket-menu-list-item>
             <v-divider
                 :inset="true"
             ></v-divider>
@@ -58,58 +48,36 @@
 </template>
 
 <script>
+import HeaderBasketMenuListItem from "./HeaderBasketMenuListItem.vue";
+import {mapActions} from "vuex";
+
 export default {
   name: "HeaderBasketMenu",
+  components:{
+    HeaderBasketMenuListItem
+  },
   data () {
     return {
-      items: [
-        {
-          title: 'Click Me',
-        },
-        {
-          title: 'Click Me',
-        },
-        {
-          title: 'Click Me',
-        },
-        {
-          title: 'Click Me 2',
-        },
-      ],
-      mytems: [
 
-        {
-          avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
-          title: 'Brunch this weekend?',
-          subtitle: `le text2`,
-        },
-
-        {
-          avatar: 'https://cdn.vuetifyjs.com/images/lists/2.jpg',
-          title: 'Summer BBQ',
-          subtitle: `letext2`,
-        },
-
-        {
-          avatar: 'https://cdn.vuetifyjs.com/images/lists/3.jpg',
-          title: 'Oui oui',
-          subtitle: 'leText2',
-        },
-
-        {
-          avatar: 'https://cdn.vuetifyjs.com/images/lists/4.jpg',
-          title: 'Birthday gift',
-          subtitle: 'le Texts',
-        },
-
-        {
-          avatar: 'https://cdn.vuetifyjs.com/images/lists/5.jpg',
-          title: 'Recipe to try',
-          subtitle: 'lesos textos',
-        },
-      ],
     }
   },
+  computed:{
+    basket(){
+      return this.$store.getters.getBasket;
+    }
+  },
+  methods:{
+    changeProductCount(productId,newCount){
+      let t = {productId,newCount};
+      this.$store.dispatch('setNewProductCount',t);
+    },
+    ...mapActions({
+      fetchBasketFromApi: 'fetchBasketFromApi'
+    })
+  },
+  mounted() {
+    this.fetchBasketFromApi();
+  }
 }
 </script>
 
