@@ -61,5 +61,9 @@ export const Basket = {
             }
             return newBasket;
         },
+        getBasketCount: (state) => (id) => {
+            let basket = state.basket;
+            return basket[id]|0;
+        }
     }
 }

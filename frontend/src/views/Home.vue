@@ -14,7 +14,7 @@
                 min-height="250"
                 transition="expand-transition"
             >
-              <product-component :description="product.description" :id="product.id" :image-name="product.imageName" :special-price="product.specialOffer" :normal-price="product.normalPrice" :product-name="product.productName">
+              <product-component @click="clickOnProduct(product.id)"   :description="product.description" :id="product.id" :image-name="product.imageName" :special-price="product.specialOffer" :normal-price="product.normalPrice" :product-name="product.productName">
 
               </product-component>
             </v-lazy>
@@ -28,7 +28,7 @@
 <script>
 
 import ProductComponent from "../components/ProductComponent.vue";
-import { mapActions } from 'vuex'
+
 
 export default {
   name: 'Home',
@@ -46,12 +46,12 @@ export default {
     }
   },
   mounted() {
-    this.fetchProducts();
+
   },
   methods:{
-    ...mapActions({
-      fetchProducts: 'fetchProductsFromApi'
-    })
+    clickOnProduct(id){
+      this.$router.push("product/"+id)
+    }
   }
 }
 </script>

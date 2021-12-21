@@ -1,4 +1,5 @@
 <template>
+
   <v-card
       :loading="loading"
       class="product"
@@ -13,25 +14,30 @@
       ></v-progress-linear>
     </template>
 
-    <v-img
-        contain
-        height="250"
-        :src="imageSrc"
-    ></v-img>
+    <div class="pointerclass" @click="$emit('click')">
+      <v-img
+          contain
+          height="250"
+          :src="imageSrc"
+      ></v-img>
+    </div>
+
 
     <v-card-title>
-      {{this.productName}}
+      <div class="pointerclass" @click="$emit('click')">
+        {{this.productName}}
+      </div>
     </v-card-title>
 
     <v-card-text
-      class="h-400"
+        class="h-400"
     >
 
       <div class="text-subtitle-1" :class="mainPriceCssClass">
-        {{this.normalPrice}} CHF
+        {{this.normalPrice|toMoney}}
       </div>
       <div class="text-subtitle-1 actionPrice price" v-if="specialPrice">
-        {{this.specialPrice}} CHF
+        {{this.specialPrice|toMoney}}
       </div>
 
       <div>{{this.description}}</div>
@@ -43,10 +49,14 @@
       <v-btn
           color="deep-purple lighten-2"
           text
-          @click="addToBasket"
+          @click="changeBasketCount(1)"
+          v-if="basketCount === 0"
       >
         Zum Warenkorb hinzufügen
       </v-btn>
+      <product-counter v-else :value="basketCount" @remove="changeBasketCount(0)" @change="changeBasketCount($event)">
+
+      </product-counter>
     </v-card-actions>
   </v-card>
 </template>
@@ -55,9 +65,13 @@
 
 
 import {URL_BACK} from "../Web.Config.js";
+import ProductCounter from "../components/ProductCounter.vue";
 
 export default {
   name: "ProductComponent",
+  components:{
+    ProductCounter
+  },
   props:{
     id:{
       type:Number,
@@ -85,8 +99,12 @@ export default {
     }
   },
   methods:{
-    addToBasket(){
-      console.log("Added to basket");
+
+    changeBasketCount(newCount){
+      this.$store.dispatch('setNewProductCount',{
+        productId:this.id,
+        newCount:newCount,
+      });
     }
   },
   data:function () {
@@ -108,6 +126,9 @@ export default {
         return `${URL_BACK}/${this.imageName}`;
       }
       return "https://cdn.vuetifyjs.com/images/cards/cooking.png";
+    },
+    basketCount(){
+      return this.$store.getters.getBasketCount(this.id)
     }
   }
 }
@@ -128,5 +149,8 @@ export default {
 }
 .old-price{
   text-decoration: line-through;
+}
+.pointerclass{
+  cursor:pointer;
 }
 </style>

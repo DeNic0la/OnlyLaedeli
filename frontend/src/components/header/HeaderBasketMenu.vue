@@ -9,18 +9,12 @@
           v-bind="attrs"
           v-on="on"
       >
-        B {{totalPrice}} CHF
+        <v-icon
+            class="basketIcon"
+        >mdi-basket</v-icon>
+        {{totalPrice|toMoney}}
       </v-btn>
     </template>
-    <!--v-list>
-      <v-list-item
-          v-for="(item, i) in items"
-          :key="i"
-          @click="() => {}"
-      >
-        <v-list-item-title>{{ item.title }}</v-list-item-title>
-      </v-list-item>
-    </v-list-->
     <v-card
         max-width="400"
         width="300"
@@ -49,7 +43,7 @@
 
 <script>
 import HeaderBasketMenuListItem from "./HeaderBasketMenuListItem.vue";
-import {mapActions} from "vuex";
+
 
 export default {
   name: "HeaderBasketMenu",
@@ -83,16 +77,15 @@ export default {
       let t = {productId,newCount};
       this.$store.dispatch('setNewProductCount',t);
     },
-    ...mapActions({
-      fetchBasketFromApi: 'fetchBasketFromApi'
-    })
   },
   mounted() {
-    this.fetchBasketFromApi();
+
   }
 }
 </script>
 
 <style scoped>
-
+.basketIcon{
+  margin-right: 2px;
+}
 </style>

@@ -12,7 +12,7 @@
         <product-counter :value="count" @change="$emit('change', $event)"  @remove="$emit('remove')">
 
         </product-counter>
-        <div>{{itemPrice}} CHF</div>
+        <div>{{itemPrice|toMoney}}</div>
       </v-list-item-subtitle>
     </v-list-item-content>
   </v-list-item>

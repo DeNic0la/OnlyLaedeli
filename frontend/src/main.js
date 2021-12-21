@@ -4,6 +4,7 @@ import vuetify from './plugins/vuetify'
 import router from './router'
 import store from "./store/index.js";
 
+
 Vue.config.productionTip = false
 
 
@@ -15,3 +16,4 @@ new Vue({
 }).$mount('#app')
 
 
+import "./filter/filters";

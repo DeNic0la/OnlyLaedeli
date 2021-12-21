@@ -30,10 +30,10 @@
       >
 
         <div class="text-subtitle-1" :class="mainPriceCssClass">
-          {{this.product.normalPrice}} CHF
+          {{this.product.normalPrice|toMoney}}
         </div>
         <div class="text-subtitle-1 actionPrice price" v-if="product.specialOffer">
-          {{this.product.specialOffer}} CHF
+          {{this.product.specialOffer|toMoney}}
         </div>
 
         <div>{{this.product.description}}</div>
@@ -45,9 +45,14 @@
         <v-btn
             color="deep-purple lighten-2"
             text
+            @click="changeBasketCount(1)"
+            v-if="productBasketCount === 0"
         >
           Zum Warenkorb hinzufügen
         </v-btn>
+        <product-counter v-else :value="productBasketCount" @remove="changeBasketCount(0)" @change="changeBasketCount($event)">
+
+        </product-counter>
       </v-card-actions>
     </v-card>
   </div>
@@ -56,28 +61,35 @@
 <script>
 
 
-import {mapActions} from "vuex";
 import {URL_BACK} from "../Web.Config.js";
+import ProductCounter from "../components/ProductCounter.vue";
 
 export default {
   name: "Product",
+  components:{
+    ProductCounter
+  },
   data: function (){
     return{
       id:parseInt(this.$route.params.id),
-//      product: {},
     }
   },
   mounted() {
-    this.fetchProducts();
   },
   methods:{
-    ...mapActions({
-      fetchProducts: 'fetchProductsFromApi'
-    })
+    changeBasketCount(newCount){
+      this.$store.dispatch('setNewProductCount',{
+        productId:this.id,
+        newCount:newCount,
+      });
+    }
   },
   computed:{
     product(){
       return this.$store.getters.getProductById(this.id);
+    },
+    productBasketCount(){
+      return this.$store.getters.getBasketCount(this.id)
     },
     imageSrc(){
       if (this.product.imageName){
