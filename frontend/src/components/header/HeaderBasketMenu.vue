@@ -37,7 +37,9 @@
 
             <v-list-item-content class="text-center justify-center">
               <v-list-item-title>Total: {{totalPrice|toMoney}}</v-list-item-title>
-              <v-btn>Checkout</v-btn>
+              <v-btn
+                  @click="goToCheckout"
+              >Checkout</v-btn>
             </v-list-item-content>
           </v-list-item>
 
@@ -84,6 +86,9 @@ export default {
     changeProductCount(productId,newCount){
       let t = {productId,newCount};
       this.$store.dispatch('setNewProductCount',t);
+    },
+    goToCheckout(){
+      this.$router.push('Checkout')
     },
   },
   mounted() {
