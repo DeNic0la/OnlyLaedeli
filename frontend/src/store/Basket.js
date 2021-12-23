@@ -33,17 +33,19 @@ export const Basket = {
             let id = details.productId;
             let count = details.newCount;
             new Promise(resolve => {
-                axios.post(`${URL_BACK}/basket/${id}`, {headers: {Accept: 'application/json'},
-                    data:{
+                axios.post(`${URL_BACK}/basket/${id}`,
+                    {
                         itemId:id,
                         amount:count,
-                    }},).then(value => {
-                    if (value.status === 200) {
-                        resolve(value.data)
-                    } else {
-                        resolve({});
-                    }
-                })
+                    },
+                    {headers: {Accept: 'application/json'}})
+                    .then(value => {
+                        if (value.status === 200) {
+                            resolve(value.data)
+                        } else {
+                            resolve({});
+                        }
+                    })
             }).then(r =>{
                 commit('updateBasket',{payload:{basket:r},getters});
             })

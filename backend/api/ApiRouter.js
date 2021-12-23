@@ -39,6 +39,8 @@ ApiRouter.post('/basket/:itemId', async context => {
 })
 ApiRouter.post('/basket/checkout', async context => {
     const {data, basket} = await context.request.body().value;
+    console.log(data);
+    console.log(basket);
     //TODO Laurin Vertify Data and Basket
     context.response.body = {
         valid: true,

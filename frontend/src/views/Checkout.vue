@@ -32,6 +32,7 @@
                 <v-text-field
                     label="Vorname"
                     :rules="[rules.required, rules.counter]"
+                    v-model="firstnameField"
                     placeholder="Max">
                   <template #label>
                     Vorname <span class="red--text"><strong>* </strong></span>
@@ -46,6 +47,7 @@
               >
                 <v-text-field
                     label="Nachname"
+                    v-model="lastnameField"
                     :rules="[rules.required, rules.counter]"
                     placeholder="Musterman">
                   <template #label>
@@ -63,6 +65,7 @@
                 <v-text-field
                     label="E-Mail"
                     type="email"
+                    v-model="emailField"
                     :rules="[rules.required, rules.counter,rules.email]"
                     placeholder="MaxMusterman@mail.ch">
                   <template #label>
@@ -98,6 +101,8 @@
 </template>
 
 <script>
+import axios from "axios";
+import {URL_BACK} from "../Web.Config.js";
 export default {
   name: "Checkout",
   data:function () {
@@ -110,11 +115,22 @@ export default {
           const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
           return pattern.test(value) || 'Ungültige e-mail.'
         },
-      }
+      },
+      firstnameField: '',
+      lastnameField: '',
+      emailField: '',
     }
   },
   methods: {
     sendForm(){
+      axios.post(`${URL_BACK}/basket/checkout`,
+          {data:{
+                  firstname:this.firstnameField,
+                  lastname:this.lastnameField,
+                  email:this.emailField,
+                },
+                basket:this.basket
+      },{headers: {Accept: 'application/json'}})
       console.log("sent");
     },
     clearForm(){
