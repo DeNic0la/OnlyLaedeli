@@ -33,6 +33,17 @@
             ></v-divider>
           </div>
 
+          <v-list-item>
+
+            <v-list-item-content class="text-center justify-center">
+              <v-list-item-title>Total: {{totalPrice|toMoney}}</v-list-item-title>
+              <v-btn>Checkout</v-btn>
+            </v-list-item-content>
+            <v-list-item-action>
+
+            </v-list-item-action>
+          </v-list-item>
+
         </template>
       </v-list>
 
