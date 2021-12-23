@@ -121,6 +121,11 @@ export default {
       emailField: '',
     }
   },
+  computed:{
+    basket(){
+      return this.$store.getters.getBasket;
+    },
+  },
   methods: {
     sendForm(){
       axios.post(`${URL_BACK}/basket/checkout`,
