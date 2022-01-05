@@ -4,7 +4,7 @@
       <v-container>
         <v-row>
           <v-col
-              cols="4"
+              :cols="cols"
               v-for="(product, index) in products" :key="index"
           >
             <v-lazy
@@ -43,6 +43,17 @@ export default {
   computed:{
     products(){
       return this.$store.getters.getAllProducts;
+    },
+    cols(){
+      switch (this.$vuetify.breakpoint.name) {
+        case 'xs': return 12
+        case 'sm': return 6
+        case 'md': return 6
+        case 'lg': return 4
+        case 'xl': return 4
+        default:
+          return 4;
+      }
     }
   },
   mounted() {
