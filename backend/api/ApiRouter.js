@@ -17,6 +17,18 @@ ApiRouter.get('/product/:id', context => {
         "description": "Hardcoded Object"
     }`;
 })
+ApiRouter.post('/basket/checkout', async context => {
+    const {data, basket} = await context.request.body().value;
+    console.log(data);
+    console.log(basket);
+    //TODO Laurin Vertify Data and Basket
+    context.response.body = {
+        valid: true,
+        errors:{},
+        orderNumber:1,
+    };
+    //errors format = field:error message
+})
 ApiRouter.get('/basket/', context => {
     //TODO LAURIN: return the Basket
     context.response.body = {
@@ -37,15 +49,6 @@ ApiRouter.post('/basket/:itemId', async context => {
     }; // Formatt = ID : AMOUNT
     //TODO VERY IMPORTANT! Return new Basket
 })
-ApiRouter.post('/basket/checkout', async context => {
-    const {data, basket} = await context.request.body().value;
-    //TODO Laurin Vertify Data and Basket
-    context.response.body = {
-        valid: true,
-        errors:{},
-        orderNumber:1,
-    };
-    //errors format = field:error message
-})
+
 
 export {ApiRouter};

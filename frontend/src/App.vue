@@ -6,7 +6,7 @@
                color="pink darken-4"
     >
       <v-toolbar-title>
-        <router-link to="/" class="app-title">OnlyLaedeli</router-link>
+        <router-link to="/" class="app-title">OnlyLädeli</router-link>
       </v-toolbar-title>
       <v-spacer></v-spacer>
 
