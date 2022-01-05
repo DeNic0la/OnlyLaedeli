@@ -14,7 +14,7 @@
                 min-height="250"
                 transition="expand-transition"
             >
-              <product-component :description="product.description" :id="product.id" :image-name="product.imageName" :special-price="product.specialOffer" :normal-price="product.normalPrice" :product-name="product.productName">
+              <product-component @click="clickOnProduct(product.id)"   :description="product.description" :id="product.id" :image-name="product.imageName" :special-price="product.specialOffer" :normal-price="product.normalPrice" :product-name="product.productName">
 
               </product-component>
             </v-lazy>
@@ -28,7 +28,7 @@
 <script>
 
 import ProductComponent from "../components/ProductComponent.vue";
-import {getService} from "../service/ProductService.js";
+
 
 export default {
   name: 'Home',
@@ -37,17 +37,21 @@ export default {
   },
   data:function () {
     return {
-      products: [],
-      productService: getService(),
+
     }
   },
   computed:{
-
+    products(){
+      return this.$store.getters.getAllProducts;
+    }
   },
   mounted() {
-    this.productService.getAllProducts().then(value => {
-      this.products = value;
-    })
+
+  },
+  methods:{
+    clickOnProduct(id){
+      this.$router.push("product/"+id)
+    }
   }
 }
 </script>

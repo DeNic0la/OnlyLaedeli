@@ -18,7 +18,7 @@
       <v-img
           height="60vh"
           contain
-          src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+          :src="imageSrc"
       ></v-img>
 
       <v-card-title>
@@ -30,10 +30,10 @@
       >
 
         <div class="text-subtitle-1" :class="mainPriceCssClass">
-          {{this.product.normalPrice}} CHF
+          {{this.product.normalPrice|toMoney}}
         </div>
         <div class="text-subtitle-1 actionPrice price" v-if="product.specialOffer">
-          {{this.product.specialOffer}} CHF
+          {{this.product.specialOffer|toMoney}}
         </div>
 
         <div>{{this.product.description}}</div>
@@ -45,32 +45,58 @@
         <v-btn
             color="deep-purple lighten-2"
             text
+            @click="changeBasketCount(1)"
+            v-if="productBasketCount === 0"
         >
           Zum Warenkorb hinzufügen
         </v-btn>
+        <product-counter v-else :value="productBasketCount" @remove="changeBasketCount(0)" @change="changeBasketCount($event)">
+
+        </product-counter>
       </v-card-actions>
     </v-card>
   </div>
 </template>
 
 <script>
-import {getService} from "../service/ProductService.js";
+
+
+import {URL_BACK} from "../Web.Config.js";
+import ProductCounter from "../components/ProductCounter.vue";
 
 export default {
   name: "Product",
+  components:{
+    ProductCounter
+  },
   data: function (){
     return{
-      id:this.$route.params.id,
-      productService: getService(),
-      product: null,
+      id:parseInt(this.$route.params.id),
     }
   },
   mounted() {
-    this.productService.getProductById(this.id).then(value => {
-      this.product = value;
-    });
+  },
+  methods:{
+    changeBasketCount(newCount){
+      this.$store.dispatch('setNewProductCount',{
+        productId:this.id,
+        newCount:newCount,
+      });
+    }
   },
   computed:{
+    product(){
+      return this.$store.getters.getProductById(this.id);
+    },
+    productBasketCount(){
+      return this.$store.getters.getBasketCount(this.id)
+    },
+    imageSrc(){
+      if (this.product.imageName){
+        return `${URL_BACK}/${this.product.imageName}`;
+      }
+      return "https://cdn.vuetifyjs.com/images/cards/cooking.png";
+    },
     isValid(){
       return this.product?.id;
     },

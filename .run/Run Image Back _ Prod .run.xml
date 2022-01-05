@@ -2,7 +2,7 @@
   <configuration default="false" name="Run Image Back | Prod " type="docker-deploy" factoryName="docker-image" folderName="Prod" server-name="Docker">
     <deployment type="docker-image">
       <settings>
-        <option name="imageTag" value="denic0la/laedeli-front:latest" />
+        <option name="imageTag" value="denic0la/laedeli-back:latest" />
         <option name="containerName" value="back-prod" />
         <option name="portBindings">
           <list>

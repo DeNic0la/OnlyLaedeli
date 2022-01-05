@@ -5,20 +5,17 @@
                dark
                color="pink darken-4"
     >
-      <v-toolbar-title>OnlyLaedeli</v-toolbar-title>
+      <v-toolbar-title>
+        <router-link to="/" class="app-title">OnlyLaedeli</router-link>
+      </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn
-          color="purple darken-1"
-          elevation="4"
-      >
-        <router-link to="/">Home</router-link>
-      </v-btn>
-      <v-btn
-          color="purple darken-1"
-          elevation="4"
-      >
-        <router-link to="/product">Product</router-link>
-      </v-btn>
+
+      <header-basket-menu>
+
+      </header-basket-menu>
+
+
+
 
 
     </v-app-bar>
@@ -36,15 +33,28 @@
 
 <script>
 
+import HeaderBasketMenu from "./components/header/HeaderBasketMenu.vue";
+import {mapActions} from "vuex";
+
 export default {
   name: 'App',
   components: {
-
+    HeaderBasketMenu,
   },
   data:function(){
     return{
 
     }
+  },
+  methods:{
+    ...mapActions({
+      fetchProducts: 'fetchProductsFromApi',
+      fetchBasket:'fetchBasketFromApi'
+    }),
+  },
+  created() {
+    this.fetchProducts();
+    this.fetchBasket();
   }
 }
 </script>
@@ -58,11 +68,12 @@ export default {
 .v-application button a{
   color: white;
 }
-a{
+.v-application .app-title{
   text-decoration: none;
+  color: white;
 }
 
 .router-link-exact-active{
-  text-decoration: underline;
+ // text-decoration: underline;
 }
 </style>
