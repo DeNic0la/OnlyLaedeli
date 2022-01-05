@@ -1,0 +1,9 @@
+services:
+  front:
+    image: denic0la/laedeli-front
+    ports:
+      - 80:80
+  back:
+    image: denic0la/laedeli-back
+    ports:
+      - 8000:8000

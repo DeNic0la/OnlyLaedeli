@@ -1,4 +1,4 @@
-import {send, Context } from "./deps.js";
+import {send, Context, oakCors} from "./deps.js";
 
 export const staticFiles = context => send(
     context,

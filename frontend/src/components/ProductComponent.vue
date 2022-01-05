@@ -14,8 +14,9 @@
     </template>
 
     <v-img
+        contain
         height="250"
-        src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+        :src="imageSrc"
     ></v-img>
 
     <v-card-title>
@@ -51,6 +52,10 @@
 </template>
 
 <script>
+
+
+import {URL_BACK} from "../Web.Config.js";
+
 export default {
   name: "ProductComponent",
   props:{
@@ -82,6 +87,7 @@ export default {
   methods:{
     addToBasket(){
       console.log("Added to basket");
+
     }
   },
   data:function () {
@@ -98,6 +104,12 @@ export default {
         return "price"
       }
     },
+    imageSrc(){
+      if (this.imageName){
+        return `${URL_BACK}/${this.imageName}`;
+      }
+      return "https://cdn.vuetifyjs.com/images/cards/cooking.png";
+    }
   }
 }
 </script>

@@ -14,7 +14,7 @@
                 min-height="250"
                 transition="expand-transition"
             >
-              <product-component :description="product.description" :special-price="product.specialOffer" :normal-price="product.normalPrice" :product-name="product.productName">
+              <product-component :description="product.description" :id="product.id" :image-name="product.imageName" :special-price="product.specialOffer" :normal-price="product.normalPrice" :product-name="product.productName">
 
               </product-component>
             </v-lazy>
@@ -28,7 +28,7 @@
 <script>
 
 import ProductComponent from "../components/ProductComponent.vue";
-import Products from "../assets/products_big.json"
+import {getService} from "../service/ProductService.js";
 
 export default {
   name: 'Home',
@@ -36,15 +36,18 @@ export default {
     ProductComponent
   },
   data:function () {
-    return{
-      products:Products,
+    return {
+      products: [],
+      productService: getService(),
     }
   },
   computed:{
 
   },
   mounted() {
-
+    this.productService.getAllProducts().then(value => {
+      this.products = value;
+    })
   }
 }
 </script>

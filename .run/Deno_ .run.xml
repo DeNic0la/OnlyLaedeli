@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Deno:Backend (Allow all)" type="DenoConfigurationType" inputPath="$PROJECT_DIR$/backend/backend.js" programParameters="run --lock=lock.json --cached-only --allow-all" workingDirectory="$PROJECT_DIR$/backend">
+  <configuration default="false" name="Deno:Backend (Allow all)" type="DenoConfigurationType" inputPath="$PROJECT_DIR$/backend/backend.js" programParameters="run --allow-all" workingDirectory="$PROJECT_DIR$/backend">
     <method v="2" />
   </configuration>
 </component>
