@@ -3,7 +3,6 @@
   <v-card
       :loading="loading"
       class="product"
-
       height="500px"
   >
     <template slot="progress">
