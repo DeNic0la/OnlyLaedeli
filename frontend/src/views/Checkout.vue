@@ -1,6 +1,7 @@
 <template>
   <div class="product-container">
     <v-card
+        v-if="!orderSent"
         class="product"
         :width="width"
         :max-width="width"
@@ -130,6 +131,17 @@
         </v-btn>
       </v-card-actions>
     </v-card>
+    <v-card
+        v-else
+        class="product"
+        :width="width"
+        :max-width="width"
+    >
+      <h1 class="text-center">
+        Besten Dank für ihre Bestellung!
+      </h1>
+      <h2 class="text-center">Bestellnummer: {{orderNumber}}</h2>
+    </v-card>
   </div>
 </template>
 
@@ -143,6 +155,8 @@ export default {
   components:{HeaderBasketMenuListItem},
   data:function () {
     return{
+      orderSent: false,
+      orderNumber: 0,
       valid:false,
       rules: {
         required: value => !!value || 'Pflichtfeld.',
@@ -194,6 +208,18 @@ export default {
                 },
                 basket:this.basket
       },{headers: {Accept: 'application/json'}})
+          .then(value => {
+            const data = value?.data;
+            if (data?.valid){
+              this.orderSent = true;
+              this.orderNumber = data.orderNumber;
+            }
+            else{
+              alert('Die eingegebenen Daten sind nicht Korrekt.');
+            }
+
+            console.log(value);
+          })
       console.log("sent");
     },
     clearForm(){
