@@ -88,7 +88,7 @@ export default {
       this.$store.dispatch('setNewProductCount',t);
     },
     goToCheckout(){
-      this.$router.push('Checkout')
+      this.$router.push('/Checkout')
     },
   },
   mounted() {
