@@ -1,9 +1,10 @@
 import { Application, oakCors } from "./deps.js";
 import {staticFiles} from "./fileserver.js";
-import {ApiRouter} from "./api/ApiRouter.js";
+import {ApiRouter, SessionForApp} from "./api/ApiRouter.js";
 
 const app = new Application();
 
+app.use(SessionForApp);// To Use Sessions
 app.use(oakCors()); //Enable CORS (Everywhere)
 app.use(ApiRouter.routes());
 app.use(ApiRouter.allowedMethods());

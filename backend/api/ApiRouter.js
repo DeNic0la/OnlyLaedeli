@@ -1,21 +1,15 @@
-import {helpers,Router} from "../deps.js";
+import {helpers,Router, Session} from "../deps.js";
+import {BasketManager} from "./BasketManager.js";
 
 const ApiRouter = new Router();
+const session = new Session();
+let Basket = new BasketManager();
+export let SessionForApp = session.initMiddleware();
+
+
 
 ApiRouter.get("/hello",context => {
     context.response.body = "Backend is Alive"
-})
-ApiRouter.get('/product/:id', context => {
-    const { id } = helpers.getQuery(context,{mergeParams:true});
-    //TODO LAURIN: Return the requested Product Object
-    context.response.body = `{
-        "id": ${id},
-        "productName": "Demo",
-        "specialOffer": 0.0,
-        "normalPrice": 0.0,
-        "imageName": "null.jpg",
-        "description": "Hardcoded Object"
-    }`;
 })
 ApiRouter.post('/basket/checkout', async context => {
     const {data, basket} = await context.request.body().value;
@@ -29,13 +23,8 @@ ApiRouter.post('/basket/checkout', async context => {
     };
     //errors format = field:error message
 })
-ApiRouter.get('/basket/', context => {
-    //TODO LAURIN: return the Basket
-    context.response.body = {
-        1:3,
-        3:2,
-        4:5,
-    }; // Formatt = ID : AMOUNT
+ApiRouter.get('/basket/', async context => {
+    context.response.body = await Basket.getBasket(context);
 })
 ApiRouter.post('/basket/:itemId', async context => {
     const {itemId} = helpers.getQuery(context, {mergeParams: true});
