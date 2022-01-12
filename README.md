@@ -26,6 +26,4 @@ Das Frontend verwendet je nach Stufe den port `:80` oder `:8080` und das Backend
 * Oak
 
 
-//TODO: https://stackoverflow.com/questions/59722631/passing-environment-variables-at-runtime-to-vue-js-application-with-docker-compo
-
 
