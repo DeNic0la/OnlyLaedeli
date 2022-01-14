@@ -74,7 +74,7 @@ export default {
       Object.values(this.basket).forEach((value) =>{
         if (value.product){
           const {specialOffer, normalPrice} = value.product;
-          const itemPrice = parseInt(specialOffer||normalPrice|| 0);
+          const itemPrice = parseFloat(specialOffer||normalPrice|| 0);
           price += itemPrice * value.count;
         }
       })
