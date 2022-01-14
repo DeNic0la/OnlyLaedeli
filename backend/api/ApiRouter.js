@@ -27,8 +27,8 @@ ApiRouter.get('/basket/', async context => {
     context.response.body = await Basket.getBasket(context);
 })
 ApiRouter.post('/basket/:itemId', async context => {
-    const {itemId} = parseInt(helpers.getQuery(context, {mergeParams: true}));
-    const {amount} = parseInt(await context.request.body().value);
+    //const {itemId} = parseInt(helpers.getQuery(context, {mergeParams: true}));
+    const {amount,itemId} = await context.request.body().value;
 
     let basket = await Basket.getBasket(context);
     if (amount === 0) {
@@ -37,8 +37,9 @@ ApiRouter.post('/basket/:itemId', async context => {
     else if(amount > 0){
         basket[itemId] = amount;
     }
-    Basket.addOrUpdateBasket(basket);
-    context.response.body = {1:2};
+    Basket.addOrUpdateBasket(context, basket);
+    context.response.body = basket;
+
 })
 
 export {ApiRouter};
