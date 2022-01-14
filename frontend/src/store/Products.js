@@ -1,5 +1,9 @@
 import axios from "axios";
 import {URL_BACK} from "../Web.Config.js";
+const leAxios = axios.create({
+    withCredentials: true,
+    baseURL: `${URL_BACK}`
+});
 export const Products = {
     state: () => ({
         products:[],
@@ -16,12 +20,11 @@ export const Products = {
     actions: {
         fetchProductsFromApi({commit}){
             new Promise(resolve => {
-                axios.get(`${URL_BACK}/products.json`, {headers: {Accept: 'application/json'}}).then(value => {
+                leAxios.get(`/products.json`, {headers: {Accept: 'application/json'}}).then(value => {
                     if (value.status === 200) {
                         resolve(value.data)
                     } else {
                         resolve([]);
-                        //TODO Show Error
                         return [];
                     }
                 })

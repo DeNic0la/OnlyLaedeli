@@ -5,9 +5,10 @@ import {ApiRouter, SessionForApp} from "./api/ApiRouter.js";
 const app = new Application();
 app.use(oakCors({
     origin: "http://localhost:8080",
-    methods:['GET','POST','OPTIONS','HEAD'],
+    methods:['GET','POST','OPTION','HEAD'],
     preflightContinue:false,
-    exposedHeader:"Access-Control-Allow-Origin",
+    credentials: true,
+    exposedHeader:"Access-Control-Allow-Origin,Access-Control-Allow-Credentials",
     optionsSuccessStatus:200
 })); //Enable CORS (Everywhere)
 
