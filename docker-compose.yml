@@ -1,3 +1,4 @@
+version: "3"
 services:
   front:
     image: denic0la/laedeli-front
