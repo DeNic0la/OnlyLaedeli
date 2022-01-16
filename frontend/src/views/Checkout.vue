@@ -149,6 +149,7 @@
 import axios from "axios";
 import {URL_BACK} from "../Web.Config.js";
 import HeaderBasketMenuListItem from "../components/header/HeaderBasketMenuListItem.vue";
+import {mapActions} from "vuex";
 
 export default {
   name: "Checkout",
@@ -214,6 +215,7 @@ export default {
             if (data?.valid){
               this.orderSent = true;
               this.orderNumber = data.orderNumber;
+              this.fetchBasket();
             }
             else{
               alert('Die eingegebenen Daten sind nicht Korrekt.');
@@ -230,7 +232,11 @@ export default {
       let t = {productId,newCount};
       this.$store.dispatch('setNewProductCount',t);
     },
-  }
+    ...mapActions({
+      fetchProducts: 'fetchProductsFromApi',
+      fetchBasket:'fetchBasketFromApi'
+    }),
+  },
 }
 </script>
 
