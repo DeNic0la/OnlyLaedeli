@@ -1,4 +1,4 @@
-import {match, required, Router, Session, validate} from "../deps.js";
+import {match, required, Router, Session, validate, crypto} from "../deps.js";
 import {BasketManager} from "./BasketManager.js";
 
 const ApiRouter = new Router();
