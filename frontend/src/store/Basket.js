@@ -1,5 +1,10 @@
 import axios from "axios";
 import {URL_BACK} from "../Web.Config.js";
+const leAxios = axios.create({
+    withCredentials: true,
+    baseURL: `${URL_BACK}/basket`
+});
+
 export const Basket = {
     state: {
         basket:{},
@@ -18,7 +23,7 @@ export const Basket = {
     actions: {
         fetchBasketFromApi({commit}){
             new Promise(resolve => {
-                axios.get(`${URL_BACK}/basket/`, {headers: {Accept: 'application/json'}}).then(value => {
+                leAxios.get(`/`, {headers: {Accept: 'application/json'}}).then(value => {
                     if (value.status === 200) {
                         resolve(value.data)
                     } else {
@@ -33,7 +38,7 @@ export const Basket = {
             let id = details.productId;
             let count = details.newCount;
             new Promise(resolve => {
-                axios.post(`${URL_BACK}/basket/${id}`,
+                leAxios.post(`/${id}`,
                     {
                         itemId:id,
                         amount:count,

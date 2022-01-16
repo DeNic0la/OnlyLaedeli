@@ -1,54 +1,54 @@
-import {helpers,Router} from "../deps.js";
+import {match, required, Router, Session, validate} from "../deps.js";
+import {BasketManager} from "./BasketManager.js";
 
 const ApiRouter = new Router();
+const session = new Session();
+let Basket = new BasketManager();
+export let SessionForApp = session.initMiddleware();
+const emailRegex = RegExp(
+    /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+);
 
-ApiRouter.get("/hello",context => {
-    context.response.body = "Backend is Alive"
-})
-ApiRouter.get('/product/:id', context => {
-    const { id } = helpers.getQuery(context,{mergeParams:true});
-    //TODO LAURIN: Return the requested Product Object
-    context.response.body = `{
-        "id": ${id},
-        "productName": "Demo",
-        "specialOffer": 0.0,
-        "normalPrice": 0.0,
-        "imageName": "null.jpg",
-        "description": "Hardcoded Object"
-    }`;
-})
 ApiRouter.post('/basket/checkout', async context => {
-    const {data, basket} = await context.request.body().value;
-    console.log(data);
-    console.log(basket);
-    //TODO Laurin Vertify Data and Basket
+    const {data} = await context.request.body().value;
+
+    const [passes, errors] = await validate(data,{
+        firstname:required,
+        lastname:required,
+        email:[required,match(emailRegex,true) ]
+    });
+
     context.response.body = {
-        valid: true,
-        errors:{},
-        orderNumber:1,
+        valid: passes,
+        errors: errors,
+        orderNumber: uuid(),
     };
-    //errors format = field:error message
+    if (passes){
+        console.log("Sie haben eine neue Bestellung");
+        Basket.addOrUpdateBasket(context, {})
+    }
 })
-ApiRouter.get('/basket/', context => {
-    //TODO LAURIN: return the Basket
-    context.response.body = {
-        1:3,
-        3:2,
-        4:5,
-    }; // Formatt = ID : AMOUNT
+ApiRouter.get('/basket/', async context => {
+    context.response.body = await Basket.getBasket(context);
 })
 ApiRouter.post('/basket/:itemId', async context => {
-    const {itemId} = helpers.getQuery(context, {mergeParams: true});
-    const {amount} = await context.request.body().value;
-    //TODO Laurin update Basket, if amount = 0 delete
+    const {amount,itemId} = await context.request.body().value;
 
-    context.response.body = {
-        1:3,
-        3:2,
-        4:5,
-    }; // Formatt = ID : AMOUNT
-    //TODO VERY IMPORTANT! Return new Basket
+    let basket = await Basket.getBasket(context);
+    if (amount === 0) {
+        delete basket[itemId];
+    }
+    else if(amount > 0){
+        basket[itemId] = amount;
+    }
+    Basket.addOrUpdateBasket(context, basket);
+    context.response.body = basket;
 })
 
+function uuid() {
+    return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+        (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+    );
+}
 
 export {ApiRouter};
