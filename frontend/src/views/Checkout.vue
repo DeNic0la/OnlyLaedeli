@@ -201,13 +201,14 @@ export default {
   methods: {
     sendForm(){
       axios.post(`${URL_BACK}/basket/checkout`,
-          {data:{
+          {
+            data:{
                   firstname:this.firstnameField,
                   lastname:this.lastnameField,
                   email:this.emailField,
                 },
                 basket:this.basket
-      },{headers: {Accept: 'application/json'}})
+      },{headers: {Accept: 'application/json'},withCredentials:true})
           .then(value => {
             const data = value?.data;
             if (data?.valid){
