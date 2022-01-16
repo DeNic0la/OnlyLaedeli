@@ -1,11 +1,13 @@
-import {helpers,Router, Session} from "../deps.js";
+import {match, required, Router, Session, validate} from "../deps.js";
 import {BasketManager} from "./BasketManager.js";
 
 const ApiRouter = new Router();
 const session = new Session();
 let Basket = new BasketManager();
 export let SessionForApp = session.initMiddleware();
-
+const emailRegex = RegExp(
+    /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+);
 
 ApiRouter.post('/basket/checkout', async context => {
     const {data} = await context.request.body().value;
@@ -30,7 +32,6 @@ ApiRouter.get('/basket/', async context => {
     context.response.body = await Basket.getBasket(context);
 })
 ApiRouter.post('/basket/:itemId', async context => {
-    //const {itemId} = parseInt(helpers.getQuery(context, {mergeParams: true}));
     const {amount,itemId} = await context.request.body().value;
 
     let basket = await Basket.getBasket(context);
@@ -42,7 +43,6 @@ ApiRouter.post('/basket/:itemId', async context => {
     }
     Basket.addOrUpdateBasket(context, basket);
     context.response.body = basket;
-
 })
 
 function uuid() {
