@@ -4,7 +4,7 @@ import {ApiRouter, SessionForApp} from "./api/ApiRouter.js";
 
 const app = new Application();
 app.use(oakCors({
-    origin: "http://localhost:8080",
+    origin: ["http://localhost:8080","http://localhost:80","http://localhost"],
     methods:['GET','POST','OPTION','HEAD'],
     preflightContinue:false,
     credentials: true,
